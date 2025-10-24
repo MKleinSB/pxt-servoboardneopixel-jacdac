@@ -1,17 +1,17 @@
 namespace modules {
     /**
-     * CalliColor Calliope mini LED Ring
+     * Calliope mini Neopixelstreifen an Servoboard C8
      */
-    //% fixedInstance whenUsed block="CalliColor RGB-LED ring"
-    //% block.loc.de="CalliColor RGB-LED-Ring"
-    export const CallicolorLedRing = new LedClient("CalliColor LED ring?dev=self&num_pixels=12&variant=ring")
+    //% fixedInstance whenUsed block="Calliope Neopixelstrip C8"
+    //% block.loc.de="Calliope Neopixelstreifen"
+    export const CallipeNeopixelStrip1 = new LedClient("Calliope Neopixelstrip C8?dev=self&num_pixels=12&variant=Strip")
 
     /**
     * Custom color picker
     */
     //% blockId=CalliColorNumberPicker block="%value"
     //% blockHidden=true
-    //% group="LED"
+    //% group="LED Strip"
     //% value.fieldEditor="colornumber" value.fieldOptions.decompileLiterals=true
     //% value.fieldOptions.colours='["#ffffff","#ff0000","#ff7f00","#fffe00","#7fff00","#00ff00","#00ff7f","#00fffe","#0040ff","#0000ff","#6000ff","#fe00ff","#ff0040","#acb3f3","#e0acfe","#a300ff","#ea00ff","#ff00e3","#fdd3f8","#f1d07e","#a8b5f5","#C3C6D8", "#f3f2da","#727474", "#000000"]'
     //% value.fieldOptions.columns=5 value.fieldOptions.className='rgbColorPicker'  
@@ -23,7 +23,7 @@ namespace modules {
     * Konvertiert den Farbnamen in eine Zahl
     */
     //% blockId=CalliColor block="%c=CalliColorNumberPicker"
-    //% group="LED" weight=83
+    //% group="LED Strip" weight=83
     //% c.defl=0xff0000
     //% inlineInputMode=external
     export function CalliColor(c: number): number {
@@ -39,7 +39,7 @@ namespace modules {
     //% weight=3
     //% blockId="rgb" block="red %red|green %green|blue %blue"
     //% block.loc.de="rot %red|grün %green|blau %blue"
-    //% group="LED" weight=82
+    //% group="LED Strip" weight=82
     export function rgb(red: number, green: number, blue: number): number {
         return ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | (blue & 0xFF);
     }
@@ -48,7 +48,7 @@ namespace modules {
 namespace servers {
     function start() {
         jacdac.productIdentifier = 0x32690c10
-        jacdac.deviceDescription = "Calliope-ServoLED"
+        jacdac.deviceDescription = "Calliope Neopixelstrip C8"
         jacdac.startSelfServers(() => {
             const pin = DigitalPin.C8
             pins.setPull(pin, PinPullMode.PullNone)
