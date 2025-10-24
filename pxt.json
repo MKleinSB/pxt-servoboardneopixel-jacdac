@@ -3,7 +3,11 @@
     "version": "0.0.0",
     "description": "",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "v3": "*",
+        "jacdac": "github:microsoft/pxt-jacdac#v1.9.32",
+        "jacdac-led-strip": "github:microsoft/pxt-jacdac/led-strip#v1.9.32",
+        "jacdac-led-server": "github:microsoft/pxt-jacdac/led-server#v1.9.32"
     },
     "files": [
         "README.md",
@@ -21,5 +25,5 @@
     "supportedTargets": [
         "calliopemini"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }
