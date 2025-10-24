@@ -4,7 +4,7 @@ namespace modules {
      */
     //% fixedInstance whenUsed block="Calliope Neopixelstrip C8"
     //% block.loc.de="Calliope Neopixelstreifen"
-    export const CallipeNeopixelStrip1 = new LedStripClient("Calliope Neopixelstrip C8?dev=self&num_pixels=150&variant=Strip")
+    export const CallipeNeopixelStrip1 = new LedStripClient("Calliope Neopixelstrip C8?dev=self&num_pixels=50&variant=Strip")
 
 
 }
@@ -18,7 +18,7 @@ namespace servers {
             const sendPixels = (pixels: Buffer, brightness: number) => light.sendWS2812BufferWithBrightness(pixels, pin, brightness)
             const servers = [
                 new jacdac.LedServer(
-                    150,
+                    50,
                     jacdac.LedPixelLayout.RgbGrb,
                     sendPixels, {
                     variant: jacdac.LedVariant.Strip
