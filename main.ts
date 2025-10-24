@@ -13,8 +13,7 @@ namespace servers {
         jacdac.productIdentifier = 0x32690c10
         jacdac.deviceDescription = "Calliope Neopixelstrip C8"
         jacdac.startSelfServers(() => {
-            const pin = DigitalPin.C8
-            pins.setPull(pin, PinPullMode.PullNone)
+            const pin = 108 //DigitalPin.C8
             const sendPixels = (pixels: Buffer, brightness: number) => light.sendWS2812BufferWithBrightness(pixels, pin, brightness)
             const servers = [
                 new jacdac.LedServer(
