@@ -6,7 +6,7 @@ namespace modules {
     //% fixedInstance whenUsed block="Calliope Neopixelstrip C8"
     //% block.loc.de="Calliope Neopixelstreifen C8"
     export const CallipeNeopixelStrip1 = new LedClient("Calliope Neopixelstrip C8?dev=self&num_pixels=50&variant=Strip")
- 
+
     //% fixedInstance whenUsed block="Calliope Neopixelstrip C9"
     //% block.loc.de="Calliope Neopixelstreifen C9"
     export const CallipeNeopixelStrip2 = new LedClient("Calliope Neopixelstrip C9?dev=self&num_pixels=50&variant=Strip")
@@ -49,13 +49,111 @@ namespace modules {
         return ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | (blue & 0xFF);
     }
 
+    /**
+          * Sets a gradient between two colors
+          * @param startColor the start color
+          * @param endColor the end color
+          */
+    //% blockId=lightC8setgradient 
+    //% block="show gradient at C8 from %startColor=CalliColorNumberPicker to %endColor=CalliColorNumberPicker ||startpixel %startp endpixel %endp"
+    //% block.loc.de="zeige Farbverlauf an C8 von %startColor=CalliColorNumberPicker nach %endColor=CalliColorNumberPicker ||von Pixel %startp nach Pixel %endp"
+    //% startColor.defl=0xff0000 endColor.defl=0x00ff00
+    //% startp.defl=0 endp.defl=50
+    //% expandableArgumentMode="toggle"
+    //% inlineInputMode=inline
+    export function setC8Gradient(startColor: number, endColor: number, startp: number = 0, endp: number = 50) {
+        const sr = (startColor & 0xff0000) >> 16;
+        const sg = (startColor & 0xff00) >> 8;
+        const sb = (startColor & 0xff);
+        const er = (endColor & 0xff0000) >> 16;
+        const eg = (endColor & 0xff00) >> 8;
+        const eb = (endColor & 0xff);
+        if (Math.abs(endp - startp) < 3) {
+            startp = 0;
+            endp = 3;
+        }
+        const end = endp;
+        const start = startp
+        if (endp > startp) {
+            const n1 = end - start
+            for (let i = start; i <= end; ++i) {
+                let x = (i - start) / n1;
+                const ox = 1 - x;
+                const r = (sr * ox + er * x) | 0;
+                const g = (sg * ox + eg * x) | 0;
+                const b = (sb * ox + eb * x) | 0;
+                modules.CallipeNeopixelStrip1.setPixelColor(i, ((r << 16) + (g << 8) + b))
+            }
+
+        } else {
+            const n12 = start - end
+            for (let j = start; j >= end; --j) {
+                let x2 = (j - end) / n12;
+                const ox2 = 1 - x2;
+                const s = (er * ox2 + sr * x2) | 0;
+                const h = (eg * ox2 + sg * x2) | 0;
+                const c = (eb * ox2 + sb * x2) | 0;
+                modules.CallipeNeopixelStrip1.setPixelColor(j, ((s << 16) + (h << 8) + c))
+            }
+        }
+    }
+
+    /**
+          * Sets a gradient between two colors
+          * @param startColor the start color
+          * @param endColor the end color
+          */
+    //% blockId=lightC9setgradient 
+    //% block="show gradient at C9 from %startColor=CalliColorNumberPicker to %endColor=CalliColorNumberPicker ||startpixel %startp endpixel %endp"
+    //% block.loc.de="zeige Farbverlauf an C9 von %startColor=CalliColorNumberPicker nach %endColor=CalliColorNumberPicker ||von Pixel %startp nach Pixel %endp"
+    //% startColor.defl=0xff0000 endColor.defl=0x00ff00
+    //% startp.defl=0 endp.defl=50
+    //% expandableArgumentMode="toggle"
+    //% inlineInputMode=inline
+    export function setC9Gradient(startColor: number, endColor: number, startp: number = 0, endp: number = 50) {
+        const sr = (startColor & 0xff0000) >> 16;
+        const sg = (startColor & 0xff00) >> 8;
+        const sb = (startColor & 0xff);
+        const er = (endColor & 0xff0000) >> 16;
+        const eg = (endColor & 0xff00) >> 8;
+        const eb = (endColor & 0xff);
+        if (Math.abs(endp - startp) < 3) {
+            startp = 0;
+            endp = 3;
+        }
+        const end = endp;
+        const start = startp
+        if (endp > startp) {
+            const n1 = end - start
+            for (let i = start; i <= end; ++i) {
+                let x = (i - start) / n1;
+                const ox = 1 - x;
+                const r = (sr * ox + er * x) | 0;
+                const g = (sg * ox + eg * x) | 0;
+                const b = (sb * ox + eb * x) | 0;
+                modules.CallipeNeopixelStrip2.setPixelColor(i, ((r << 16) + (g << 8) + b))
+            }
+
+        } else {
+            const n12 = start - end
+            for (let j = start; j >= end; --j) {
+                let x2 = (j - end) / n12;
+                const ox2 = 1 - x2;
+                const s = (er * ox2 + sr * x2) | 0;
+                const h = (eg * ox2 + sg * x2) | 0;
+                const c = (eb * ox2 + sb * x2) | 0;
+                modules.CallipeNeopixelStrip2.setPixelColor(j, ((s << 16) + (h << 8) + c))
+            }
+        }
+    }
+
 }
 namespace servers {
     function start() {
         jacdac.productIdentifier = 0x32690c10
         jacdac.deviceDescription = "Calliope Servoboard Neopixels"
         jacdac.startSelfServers(() => {
-       const servers = [
+            const servers = [
                 new jacdac.LedServer(50,
                     jacdac.LedPixelLayout.RgbGrb,
                     (pixels, brightness) => light.sendWS2812BufferWithBrightness(pixels, DigitalPin.C8, brightness), {
