@@ -57,10 +57,12 @@ namespace modules {
     //% blockId=lightC8setgradient 
     //% block="show gradient at C8 from %startColor=CalliColorNumberPicker to %endColor=CalliColorNumberPicker ||startpixel %startp endpixel %endp"
     //% block.loc.de="zeige Farbverlauf an C8 von %startColor=CalliColorNumberPicker nach %endColor=CalliColorNumberPicker ||von Pixel %startp nach Pixel %endp"
-    //% startColor.defl=0xff0000 endColor.defl=0x00ff00
+    //% startColor.defl=0xffff00 endColor.defl=0xff0000
     //% startp.defl=0 endp.defl=50
     //% expandableArgumentMode="toggle"
     //% inlineInputMode=inline
+    //% weight=81     
+    //% group="LED"
     export function setC8Gradient(startColor: number, endColor: number, startp: number = 0, endp: number = 50) {
         const sr = (startColor & 0xff0000) >> 16;
         const sg = (startColor & 0xff00) >> 8;
@@ -106,10 +108,12 @@ namespace modules {
     //% blockId=lightC9setgradient 
     //% block="show gradient at C9 from %startColor=CalliColorNumberPicker to %endColor=CalliColorNumberPicker ||startpixel %startp endpixel %endp"
     //% block.loc.de="zeige Farbverlauf an C9 von %startColor=CalliColorNumberPicker nach %endColor=CalliColorNumberPicker ||von Pixel %startp nach Pixel %endp"
-    //% startColor.defl=0xff0000 endColor.defl=0x00ff00
+    //% startColor.defl=0x00ff00 endColor.defl=0x0000ff
     //% startp.defl=0 endp.defl=50
     //% expandableArgumentMode="toggle"
     //% inlineInputMode=inline
+    //% weight=81
+    //% group="LED"
     export function setC9Gradient(startColor: number, endColor: number, startp: number = 0, endp: number = 50) {
         const sr = (startColor & 0xff0000) >> 16;
         const sg = (startColor & 0xff00) >> 8;
